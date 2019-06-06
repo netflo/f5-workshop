@@ -7,18 +7,18 @@
     uri_method: POST
     
   vars_files:
-    ../creds/creds.yaml
+  - ../creds/bigip-creds.yaml
 
   tasks:
-  - name: Create a JIRA issue
-  uri:
-    url: https://3.9.54.62/mgmt/shared/appsvcs/declare/
-    user: "{{bigip_user}}"
-    password: "{{bigip_pass}}"
-    method: "{{uri_method}}"
-    body: "{{ lookup('file','issue.json') }}"
-    force_basic_auth: yes
-    status_code: 200
-    body_format: json  
-    validate_certs: no
+  - name: Create a BigIP config issue
+    uri:
+      url: https://3.9.54.62/mgmt/shared/appsvcs/declare/
+      user: "{{user}}"
+      password: "{{password}}"
+      method: "{{uri_method}}"
+      body: "{{ lookup('file','./as3-declaration.json') }}"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json  
+      validate_certs: no
 
